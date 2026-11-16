@@ -1,0 +1,113 @@
+const o = {
+  get(l) {
+    try {
+      return localStorage.getItem(l);
+    } catch {
+      return null;
+    }
+  },
+  set(l, s) {
+    try {
+      localStorage.setItem(l, s);
+    } catch {
+    }
+  }
+};
+class c {
+  constructor(s, e = {}) {
+    this.state = 3, this.loading = !1, this.preload = !1, this.talk = !1, this.mic = !1, this.mini = !1, this.header = !1, this.transition = !1, this.size = 60, this.stateOld = 3, this.offsetY = 0, this.offsetX = 0, this.startY = 0, this.startX = 0, this.topSave = null, this.leftSave = null, this.isDragging = !1, this.changeState = () => {
+      switch (this.stateOld = this.state, this.mini = !1, this.header = !1, this.mic = !1, this.state) {
+        case 1:
+          this.size = 60;
+          break;
+        case 2:
+          this.mini = !0, this.size = 20;
+          break;
+        case 3:
+          this.header = !0, this.size = 20;
+          break;
+        case 4:
+          this.size = 60, this.mic = !0;
+          break;
+        case 5:
+          this.mini = !0, this.size = 15;
+          break;
+      }
+      this.applyClasses(), this.applyStyles();
+    }, this.resetStage = () => {
+      this.mini = !1, this.header = !1, this.size = 60, this.applyClasses(), this.applyStyles();
+    }, this.backStage = () => {
+      this.state = this.stateOld, this.changeState();
+    }, this.ballStyle = (i) => {
+      let t = 1, a = 5;
+      switch (this.loading && (t = 0, a = 1), i) {
+        case 1:
+          return { opacity: `${t}`, animationDuration: `${a + 7}s` };
+        case 2:
+          return { opacity: `${t}`, animationDuration: `${a + 2}s` };
+        case 3:
+          return { opacity: `${t}`, animationDuration: `${a + 2}s` };
+        case 4:
+          return { opacity: `${t}`, animationDuration: `${a + 2}s` };
+        case 5:
+          return { opacity: `${t}`, animationDuration: `${a + 4}s` };
+        case 6:
+          return { opacity: `${t}`, animationDuration: `${a}s` };
+        case 7:
+          return { opacity: "1", animationDuration: `${a + 2}s` };
+        default:
+          return {};
+      }
+    }, this.eyeStyle = () => ({ transform: `scale(${this.size}%)` }), this.eyeGlobStyle = () => {
+      const i = this.size * 200 / 100, t = {
+        width: `${i}px`,
+        height: `${i}px`
+      };
+      return this.mini && this.topSave !== null && (t.top = this.topSave, t.position = "fixed"), this.state === 5 && (t.top = "10px", t.left = "10px", t.position = "fixed"), t;
+    }, this.setTalk = () => {
+      this.talk || (this.talk = !0, this.applyClasses(), this.talkTime = window.setTimeout(() => {
+        this.talk = !1, this.applyClasses(), window.clearTimeout(this.talkTime);
+      }, 500));
+    }, this.mount = s, e.state !== void 0 && (this.state = e.state), e.loading !== void 0 && (this.loading = e.loading), e.size !== void 0 && (this.size = e.size), this.stateOld = this.state, this.topSave = o.get("eyeTop"), this.build(), this.changeState(), setTimeout(() => {
+      this.transition = !0, this.applyClasses();
+    }, 100);
+  }
+  build() {
+    const s = document.createElement("div");
+    s.className = "eyeGlob";
+    const e = document.createElement("div");
+    e.className = "eye";
+    const i = document.createElement("span");
+    i.className = "shineTop";
+    const t = document.createElement("span");
+    t.className = "shineBottom";
+    const a = [];
+    for (let h = 1; h <= 7; h++) {
+      const n = document.createElement("div");
+      n.className = `layer${h}`, e.appendChild(n), a.push(n);
+    }
+    e.prepend(i, t), s.appendChild(e), this.mount.appendChild(s), this.eyeGlob = s, this.eye = e, this.layers = a;
+  }
+  applyClasses() {
+    this.eyeGlob.classList.toggle("mini", this.mini), this.eyeGlob.classList.toggle("header", this.header), this.eyeGlob.classList.toggle("loading", this.loading || this.preload), this.eyeGlob.classList.toggle("transition", this.transition), this.eye.classList.toggle("talk", this.talk), this.eye.classList.toggle("mic", this.mic), this.eye.classList.toggle("move", this.isDragging);
+  }
+  applyStyles() {
+    const s = this.eyeStyle();
+    Object.assign(this.eye.style, s);
+    for (let i = 1; i <= 7; i++) {
+      const t = this.ballStyle(i);
+      Object.assign(this.layers[i - 1].style, t);
+    }
+    const e = this.eyeGlobStyle();
+    Object.assign(this.eyeGlob.style, e);
+  }
+  emitClickEye() {
+    const s = new CustomEvent("clickEye", { detail: { ok: !this.isDragging } });
+    this.eyeGlob.dispatchEvent(s);
+  }
+}
+const r = document.querySelectorAll(".magic-logo");
+for (const l of r) {
+  const s = l;
+  new c(s, { state: 3, loading: !1, size: 60 });
+}

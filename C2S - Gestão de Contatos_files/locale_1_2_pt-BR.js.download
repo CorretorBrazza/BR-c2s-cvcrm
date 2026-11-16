@@ -1,0 +1,300 @@
+i18next.init({
+  lng: 'pt-BR',
+  resources: {
+    'pt-BR': {
+      translation: {
+        common: {
+          is_required: '* Campo obrigatório',
+        },
+        leads: {
+          guide_tour: {
+            blue: "<b>Blue</b> da C2S",
+            nextLabel: 'Próximo',
+            prevLabel: 'Anterior',
+            doneLabel: 'Concluir',
+            skipLabel: 'Não quero ver',
+            leads: 'Leads',
+            lead_screen: 'Tela do lead',
+            in_this_quick_tour_we_will_understand_how_to_respond_to_a_client_using_c2s: 'Neste tour rápido vamos entender como responder um cliente utilizando o C2S.',
+            these_are_the_customer_and_interest_product_information_name_phone_email_receipt_date_and_media: 'Essas são as informações do cliente e produto de interesse (nome, telefone, e-mail, data de recebimento e mídia)',
+            you_can_check_the_reason_why_the_lead_was_delivered_to_you_edit_mark_as_favorite_or_forward: 'Você pode verificar a razão pela qual o lead foi entregue para você, editar, marcar como favorito ou encaminhar.',
+            chat_of_the_messages_exchanged_between_you_and_the_customer: 'Chat das mensagens trocadas entre você e o cliente',
+            you_can_type_a_message_from_scratch_in_this_field: 'Você pode digitar uma mensagem do zero neste campo',
+            or_you_can_select_a_predefined_message_here: 'Ou você pode selecionar uma mensagem pronta aqui',
+            communication_channels_that_will_be_used_when_clicking_send_message: 'Meios de comunicação que serão utilizados ao clicar em enviar mensagem',
+            and_here_you_manage_your_lead_you_can_update_the_status_as_closed_deal_or_archived_or_setting_the_next_follow_up_activity: 'E aqui você gerencia seu lead. Pode atualizar o status como negócio fechado ou arquivado, ou também definindo a próxima atividade de follow-up',
+            always_remember_to_keep_your_follow_ups_up_to_date: 'Lembre-se sempre de deixar seus follow-ups em dia.',
+            creating_leads_manually_is_important: 'Criar leads manualmente é importante para manter todos os seus contatos organizados.',
+            creating_a_lead_manually: 'Criando um lead manualmente',
+            here_you_fill_in_the_clients_personal_data: 'Aqui você preenche com os dados pessoais do cliente',
+            and_here_the_product_your_client_is_interested_in: 'E aqui o produto em que seu cliente se interessou',
+            the_channel_is_the_means_by_which_the_initial_contact_was_established: 'O canal é o <b>meio</b> pelo o qual o contato inicial foi estabelecido',
+            and_the_source_is_to_measure_the_origin_that_generated_the_clients_interest: 'E a fonte é para medir a <b>origem</b> que gerou o interesse do cliente',
+            you_can_select_which_user_will_receive_the_lead: 'Pode selecionar qual usuário vai receber o lead',
+            but_it_is_also_possible_to_automatically_identify_the_user_following_the_companys_distribution_rules: 'Mas também é possível identificar automaticamente o usuário seguindo as regras de distribuição da empresa',
+            to_finish_the_registration_do_not_forget_to_click_create_lead: 'Para finalizar o cadastramento, não se esqueça de clicar em "Criar lead"',
+            now_you_can_create_leads_manually_whenever_you_need: 'Agora você pode criar os leads manualmente sempre que precisar',
+            all_information_about_your_customer: 'Todas as informações sobre o seu cliente',
+            messages_exchanged_with_the_customer: 'Mensagens trocadas com o cliente',
+            use_predefined_responses_to_speed_up_customer_support: 'Utilize respostas prontas para agilizar o atendimento',
+            choose_channels_to_reply_to_the_customer_and_click_reply: 'Escolha os canais para responder o cliente e clique em responder',
+            ready: 'Pronto!',
+            alerts: {
+              title: 'Alerta de leads',
+              intro_title: 'Agora vamos aprender a criar alertas que ajudam a sua empresa a se tornar uma referência no mercado no quesito velocidade de atendimento',
+              purpose: 'Os <b>Alertas</b> servem para <b>Notificar</b> o(s) usuário(s) de que existem leads novos que ainda não receberam o primeiro contato',
+              lets_understand: 'Vamos entender como se cria um novo alerta juntos',
+              loading: 'Carregando...',
+              lead_time_minutes: 'Aqui você determinará o tempo após a chegada do lead que você deseja que o alerta seja enviado. Aqui o tempo precisa ser inserido em minutos',
+              notified_users: 'Quais serão os usuário notificados: Todos os usuários master que tem acesso a unidade em que o lead está (Exemplo: gerentes da equipe + diretores), usuário master da unidade (Exemplo: Gerentes da equipe), usuário específico (Pessoa selecionada de qualquer unidade), usuário que recebeu o Lead (o próprio dono do lead)',
+              notification_period: 'Escolha em quais períodos estas notificações irão chegar. Elas podem ser enviadas 24 horas ou apenas em horários específicos (Exemplo: Horário de expediente - 09:00 às 18:00)',
+              how_to_save: 'E para salvar clique em "Criar alerta"',
+              good_work: 'Bom trabalho!!!'
+            },
+            company_config: {
+              title: 'Usuário de segurança!',
+              important_functionality: 'Esta funcionalidade é muito importante para o funcionamento da empresa.',
+              security_user: 'O usuário de segurança é o responsável por receber leads em cenários atípicos. (Exemplo: nenhum usuário estava ativo para recebimento no momento do processamento do lead).',
+              default_user: 'Usuário que recebe leads quando o <b>responsável (captador)</b> não for identificado',
+              rescue_user: 'Caso as opções acima estiverem selecionadas como "Não definido", o usuário selecionado aqui receberá o lead',
+              finish: 'Para finalizar o processo clique em "Atualizar configuração da empresa"',
+              no_leads_without_standards: 'Agora nenhum lead vai ser entregue sem critério na sua imobiliária. Fique sempre atento nesta configuração.',
+              congratulations: 'Parabéns!!!'
+            },
+            lead_source_configs: {
+              title: 'Portais',
+              how_to_add_sources: 'Aqui você vai entender como ativar novas fontes em sua empresa',
+              you_can_add_or_delete_sources: 'Você pode ativar ou desativar fontes da maneira que desejar',
+              how_to_add_or_delete_sources: 'Para ativá-la/desativá-la basta clicar no checkbox',
+              call_on_chat: 'Caso precise de uma fonte que não esteja listada aqui nos chame no chat e nossa equipe verificará a possibilidade de incluí-la.',
+            },
+            integrations: {
+              title: 'Integrações',
+              you_can_edit_integrations: 'Nesta página você pode acrescentar, editar ou excluir integrações',
+              data_menu: 'Se você precisar realizar alguma integração via e-mail ou API você pode encontrar os dados necessários expandindo esse menu.',
+              automatic_integrations: 'Integrações automáticas disponíveis para sua empresa',
+              how_to_integrate: 'Para iniciar uma integração basta clicar em <b>"Integrar"</b>  e seguir preenchendo as informações necessárias',
+              if_you_change_password: 'Se você trocar alguma senha que a nossa integração utiliza para se integrar ao portal, você precisará atualizá-la aqui manualmente para garantir que o funcionamento continue.',
+              if_you_forgot_to_update: 'Se por acaso você esquecer de atualizá-la manualmente, uma notificação aparecerá aqui indicando que você precisa atualizá-la para que os leads continuem chegando.',
+              learn_more: 'Você pode aprender mais sobre integrações clicando <a target="_blank" href="https://sites.google.com/view/guiadeajudac2s/menus/integrações/integrações">aqui</a>',
+
+            },
+            message_templates: {
+              title: 'Mensagens prontas',
+              purpose: 'As mensagens prontas ajudam a responder o cliente de maneira prática sem perder a qualidade e o padrão.',
+              active_message_templates: 'Todas as mensagens prontas que estão ativas no seu usuário',
+              define_name: 'Neste campo você define o nome da mensagem pronta',
+              define_text: 'E aqui você digita o texto que você quer que apareça ao selecionar essa mensagem pronta',
+              you_can_use_lead_data: 'Lembre-se que você pode usar essas tags para que a mensagem seja preenchida usando os dados do lead. Para usá-las é só clicar e arrastar para o campo da mensagem.',
+              save_changes: 'Não se esqueça de salvar as alterações',
+              use_message_templates: 'Use muito as mensagens prontas pois elas vão lhe poupar muito tempo e todos sabemos, tempo é dinheiro!!!'
+            },
+            sellers_edit_autos: {
+              user_data: 'Esses são dados relacionados ao usuário. Todos são editáveis e alguns obrigatórios.',
+              click_update: 'Para que qualquer atualização fique salva é preciso clicar em "Atualizar"',
+              edit: 'Sempre que precisar você pode criar novos usuários ou editar os já existentes'
+            },
+            sellers_edit_imoveis: {
+              user_data: 'Esses são dados relacionados ao usuário. Todos são editáveis e alguns obrigatórios.',
+              purpose: 'Este campo é muito importante pois é nele que o usuário cria vínculo com o gestor imobiliário, que é necessário para distribuições por captador ou mesmo criação de FACS. Se você utiliza algumas dessas opções, você deve preencher corretamente.',
+              permission_boxes: 'Estes boxes são as permissões para recebimento de  <b>Leads de Rodizio</b> de uma determinada natureza de negociação para este usuário',
+              receiving_permissions: 'Já este representa as permissões de recebimento de Leads dada uma determinada natureza de negociação. Exemplo: captações, aluguel e compra.',
+              click_update: 'Para que qualquer atualização fique salva é preciso clicar em "Atualizar"',
+              edit: 'Sempre que precisar você pode criar novos usuários ou editar os já existentes'
+            },
+            sellers_index: {
+              title: 'Cadastro de usuários',
+              how_to_register: 'Veja como cadastrar ou editar um usuário',
+              registered_users: 'Essa é a lista de seus usuários cadastrados',
+              edit_user: 'Para editar um usuário você deve clicar nesse "lápis"',
+              conclude: 'Ao concluir você será encaminhado para a próxima tour'
+            },
+            usage_control: {
+              title: 'Controle de uso',
+              users_configured: 'Aqui você pode verificar como os usuários estavam configurados em algum dia e horário específico e acompanhar as alterações que foram realizadas que impactaram / impactarão na distribuição dos leads',
+              specific_user_status: 'Você pode verificar o status de um usuário específico selecionando o nome, data e hora.',
+              cronologic_order: 'E aqui você pode visualizar em ordem cronológica as alterações que foram realizadas (mais novo primeiro)',
+              update: 'A linha mostra a data da alteração, quem alterou, o usuário modificado e a ação em si',
+              check_active: 'Se você precisar checar se um usuário estava ativo ou não a hora do recebimento de algum lead é só realizar esse processo. Você está virando um mestre do C2S!'
+            },
+            leads_index_tour: {
+              intro: '<div class="col-md-12 text-center"><p><b>Conheça o treinamento de vendas com o C2S</b></p><img class="hat-icon" src="/images/capelo.svg"></img><p class="text-body">Nesta aba você irá entender as melhores estratégias para estar à frente em seu trabalho, enviando respostas mais eficientes para seus leads.</p><p class="text-body">Responda as perguntas ao final de cada vídeo para liberar mais conteúdos e estar cada vez mais perto de se tornar mestre em vendas!</p></div><div class="col-md-12 buttons-footer"><div class="col-md-3"><button class="btn btn-outline btn-primary" onclick="introLeads.exit()">Ver depois</button></div><div class="col-md-4 pull-right"><a href="/webapp/self_trainings/2"><button class="btn btn-primary">Comece agora</button></a></div></div>'
+            },
+            pending_sellers_alert: {
+              intro: '<div class="col-md-12 text-center pending-sellers-warning">' + '<img class="title-icon" src="/images/blue-c2s.jpeg">' + '</img><b class="title">Existem usuários que ainda não acessaram o C2S!</b>' + '<button class="close close-pending-sellers-warning" type="button" onclick="introPendingSellers.exit()">&times;</button>' + '<p class="text-body">Não deixe seus leads sem atendimento! Clique no botão abaixo para abrir a aba ' + '<b>Usuários</b> e ver quem da sua equipe ainda não acessou o C2S e envie agora novos convites por email e WhatsApp!' + ' Não temos tempo a perder!</p></div><div class="col-md-12 buttons-footer"><div class="text-center">' + '<a onclick="setPending()" href="/webapp/sellers?utf8=✓&seller%5Bseller_situation%5D=3" class="btn btn-primary">' + 'Ver quem ainda não acessou</a></div></div>'
+            }
+          },
+          edit: {
+            offer_statuses: [
+              'Em aberto',
+              'Proposta aceita',
+              'Proposta recusada',
+            ],
+            offer_types: [
+              'Recursos próprios',
+              'Financiamento',
+              'Outros',
+            ],
+            offer_info: '<strong> Proposta </strong>' +
+              '<ul>' +
+              '  <li>Valor da proposta: R$ {{offerValueFormatted}}</li>' +
+              '  <li>Formas de negociação: {{offerTypeFormatted}}</li>' +
+              '  <li>Observações: {{offerDetails}}</li>' +
+              '  <li>status: {{offerStatus}}</li>' +
+              '</ul>',
+            offer_create: 'Proposta criada com sucesso!',
+            removed_with_success: 'Deletado com sucesso',
+            success_to_mark: 'Marcado com sucesso',
+            fail_to_mark: 'Falha ao marcar',
+          },
+          form: {
+            value_mask: '###.###.###,#',
+            value_mask_2_decimals: '###.###.###,##',
+            invalid_phone: 'Por favor, forneça um número de telefone válido.',
+            searching_customer: 'Procurando dados do cliente no seu banco de dados...',
+            customer_error: 'Não identificamos nenhum usuário. Por favor, verifique se os usuários podem receber leads',
+            customer_not_found: 'Nenhum cliente encontrado com esses dados',
+            customer_found: 'Encontramos um usuário!',
+            customer_found_name: 'Usuário "<strong>{{name}}</strong>" definido com base nas regras de distribuição.&nbsp;',
+            responsible_user: '{{seller_name}}',
+            responsible_user_disabled: '{{seller_name}} <span class="badge badge-warning">Desabilitado para receber leads</span>',
+            customer_found_info:  'O cliente <b>{{name}}</b> já está cadastrado em nosso sistema com os seguintes dados: <br /><br />' +
+              '<b>Celular:</b> {{phone_formatted}}<br /><b>Telefone: </b>{{phone2_formatted}}<br />' +
+              '<b>Email:</b> {{email}}<br />' +
+              '<b>Data de criação:</b> {{created_at}}<br />' +
+              '<b>Data de atualização:</b> {{updated_at}}<br />' +
+              '<b>Data da última atividade:</b> {{activity_date}}<br />' +
+              '<b>Usuário responsável:</b> $t(leads.form.responsible_user, { "context": "enabled", "seller_name": "{{seller_name}}" })<br /><br />' +
+              'Você deseja preencher automaticamente as informações deste cliente neste formulário?',
+            required_fields: 'Alguns campos precisam ser preenchidos',
+            required_fields_help: '* Uma das regras de distribuição exige que você preencha um ou mais dos seguintes campos: marca, modelo ou ano'
+          }
+        }
+      }
+    }
+  }
+});
+
+/*
+ * Bootstrap Datepicker - v1.6.4 - 8/5/2016
+ * Locale: PT (Portuguese; português)
+ * Region: BR (Brazil)
+ */
+$.fn.datepicker.dates['pt-BR'] = {
+  days: ["Domingo", "Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"],
+  daysShort: ["Dom", "Seg", "Ter", "Qua", "Qui", "Sex", "Sáb"],
+  daysMin: ["Do", "Se", "Te", "Qu", "Qu", "Se", "Sa"],
+  months: ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"],
+  monthsShort: ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul", "Ago", "Set", "Out", "Nov", "Dez"],
+  today: "Hoje",
+  monthsTitle: "Meses",
+  clear: "Limpar",
+  format: "dd/mm/yyyy"
+};
+
+$.fn.datepicker.defaults.language = 'pt-BR';
+
+/*
+ * Choosen https://github.com/harvesthq/chosen - v1.1.0
+ * Locale: PT (Portuguese; português)
+ * Region: BR (Brazil)
+ */
+if(!!$.fn.chosen.defaults){
+  $.fn.chosen.defaults.no_results_text = 'Nenhum registro encontrado.';
+  $.fn.chosen.defaults.placeholder_text_multiple = 'Selecione alguma opção';
+  $.fn.chosen.defaults.placeholder_text_single = 'Selecione uma opção';
+}
+
+/*
+ * Select2 https://select2.github.io = v4.0.3
+ * Locale: PT (Portuguese; português)
+ * Region: BR (Brazil)
+ */
+(function(){if(jQuery&&jQuery.fn&&jQuery.fn.select2&&jQuery.fn.select2.amd)var e=jQuery.fn.select2.amd;return e.define("select2/i18n/pt-BR",[],function(){return{errorLoading:function(){return"Os resultados não puderam ser carregados."},inputTooLong:function(e){var t=e.input.length-e.maximum,n="Apague "+t+" caracter";return t!=1&&(n+="es"),n},inputTooShort:function(e){var t=e.minimum-e.input.length,n="Digite "+t+" ou mais caracteres";return n},loadingMore:function(){return"Carregando mais resultados…"},maximumSelected:function(e){var t="Você só pode selecionar "+e.maximum+" ite";return e.maximum==1?t+="m":t+="ns",t},noResults:function(){return"Nenhum resultado encontrado"},searching:function(){return"Buscando…"}}}),{define:e.define,require:e.require}})();
+$.fn.select2.defaults.set('language', 'pt-BR');
+
+/*
+ * jQuery Validation Plugin - v1.15.1 - 7/22/2016
+ * http://jqueryvalidation.org/
+ * Locale: PT (Portuguese; português)
+ * Region: BR (Brazil)
+ */
+$.extend( $.validator.messages, {
+
+  // Core
+  required: "Este campo &eacute; requerido.",
+  remote: "Por favor, corrija este campo.",
+  email: "Por favor, forne&ccedil;a um endere&ccedil;o de email v&aacute;lido.",
+  url: "Por favor, forne&ccedil;a uma URL v&aacute;lida.",
+  date: "Por favor, forne&ccedil;a uma data v&aacute;lida.",
+  dateISO: "Por favor, forne&ccedil;a uma data v&aacute;lida (ISO).",
+  number: "Por favor, forne&ccedil;a um n&uacute;mero v&aacute;lido.",
+  digits: "Por favor, forne&ccedil;a somente d&iacute;gitos.",
+  creditcard: "Por favor, forne&ccedil;a um cart&atilde;o de cr&eacute;dito v&aacute;lido.",
+  equalTo: "Por favor, forne&ccedil;a o mesmo valor novamente.",
+  maxlength: $.validator.format( "Por favor, forne&ccedil;a n&atilde;o mais que {0} caracteres." ),
+  minlength: $.validator.format( "Por favor, forne&ccedil;a ao menos {0} caracteres." ),
+  rangelength: $.validator.format( "Por favor, forne&ccedil;a um valor entre {0} e {1} caracteres de comprimento." ),
+  range: $.validator.format( "Por favor, forne&ccedil;a um valor entre {0} e {1}." ),
+  max: $.validator.format( "Por favor, forne&ccedil;a um valor menor ou igual a {0}." ),
+  min: $.validator.format( "Por favor, forne&ccedil;a um valor maior ou igual a {0}." ),
+  step: $.validator.format( "Por favor, forne&ccedil;a um valor m&acute;tiplo de {0}." ),
+
+  // Metodos Adicionais
+  maxWords: $.validator.format( "Por favor, forne&ccedil;a com {0} palavras ou menos." ),
+  minWords: $.validator.format( "Por favor, forne&ccedil;a pelo menos {0} palavras." ),
+  rangeWords: $.validator.format( "Por favor, forne&ccedil;a entre {0} e {1} palavras." ),
+  accept: "Por favor, forne&ccedil;a um tipo v&aacute;lido.",
+  alphanumeric: "Por favor, forne&ccedil;a somente com letras, n&uacute;meros e sublinhados.",
+  bankaccountNL: "Por favor, forne&ccedil;a com um n&uacute;mero de conta banc&aacute;ria v&aacute;lida.",
+  bankorgiroaccountNL: "Por favor, forne&ccedil;a um banco v&aacute;lido ou n&uacute;mero de conta.",
+  bic: "Por favor, forne&ccedil;a um c&oacute;digo BIC v&aacute;lido.",
+  cifES: "Por favor, forne&ccedil;a um c&oacute;digo CIF v&aacute;lido.",
+  creditcardtypes: "Por favor, forne&ccedil;a um n&uacute;mero de cart&atilde;o de cr&eacute;dito v&aacute;lido.",
+  currency: "Por favor, forne&ccedil;a uma moeda v&aacute;lida.",
+  dateFA: "Por favor, forne&ccedil;a uma data correta.",
+  dateITA: "Por favor, forne&ccedil;a uma data correta.",
+  dateNL: "Por favor, forne&ccedil;a uma data correta.",
+  extension: "Por favor, forne&ccedil;a um valor com uma extens&atilde;o v&aacute;lida.",
+  giroaccountNL: "Por favor, forne&ccedil;a um n&uacute;mero de conta corrente v&aacute;lido.",
+  iban: "Por favor, forne&ccedil;a um c&oacute;digo IBAN v&aacute;lido.",
+  integer: "Por favor, forne&ccedil;a um n&uacute;mero n&atilde;o decimal.",
+  ipv4: "Por favor, forne&ccedil;a um IPv4 v&aacute;lido.",
+  ipv6: "Por favor, forne&ccedil;a um IPv6 v&aacute;lido.",
+  lettersonly: "Por favor, forne&ccedil;a apenas com letras.",
+  letterswithbasicpunc: "Por favor, forne&ccedil;a apenas letras ou pontua&ccedil;ões.",
+  mobileNL: "Por favor, fornece&ccedil;a um n&uacute;mero v&aacute;lido de telefone.",
+  mobileUK: "Por favor, fornece&ccedil;a um n&uacute;mero v&aacute;lido de telefone.",
+  nieES: "Por favor, forne&ccedil;a um NIE v&aacute;lido.",
+  nifES: "Por favor, forne&ccedil;a um NIF v&aacute;lido.",
+  nowhitespace: "Por favor, n&atilde;o utilize espa&ccedil;os em branco.",
+  pattern: "O formato fornenecido &eacute; inv&aacute;lido.",
+  phoneNL: "Por favor, fornece&ccedil;a um n&uacute;mero de telefone v&aacute;lido.",
+  phoneUK: "Por favor, fornece&ccedil;a um n&uacute;mero de telefone v&aacute;lido.",
+  phoneUS: "Por favor, fornece&ccedil;a um n&uacute;mero de telefone v&aacute;lido.",
+  phonesUK: "Por favor, fornece&ccedil;a um n&uacute;mero de telefone v&aacute;lido.",
+  postalCodeCA: "Por favor, fornece&ccedil;a um n&uacute;mero de c&oacute;digo postal v&aacute;lido.",
+  postalcodeIT: "Por favor, fornece&ccedil;a um n&uacute;mero de c&oacute;digo postal v&aacute;lido.",
+  postalcodeNL: "Por favor, fornece&ccedil;a um n&uacute;mero de c&oacute;digo postal v&aacute;lido.",
+  postcodeUK: "Por favor, fornece&ccedil;a um n&uacute;mero de c&oacute;digo postal v&aacute;lido.",
+  postalcodeBR: "Por favor, forne&ccedil;a um CEP v&aacute;lido.",
+  require_from_group: $.validator.format( "Por favor, forne&ccedil;a pelo menos {0} destes campos." ),
+  skip_or_fill_minimum: $.validator.format( "Por favor, optar entre ignorar esses campos ou preencher pelo menos {0} deles." ),
+  stateUS: "Por favor, forne&ccedil;a um estado v&aacute;lido.",
+  strippedminlength: $.validator.format( "Por favor, forne&ccedil;a pelo menos {0} caracteres." ),
+  time: "Por favor, forne&ccedil;a um hor&aacute;rio v&aacute;lido, no intervado de 00:00 e 23:59.",
+  time12h: "Por favor, forne&ccedil;a um hor&aacute;rio v&aacute;lido, no intervado de 01:00 e 12:59 am/pm.",
+  url2: "Por favor, fornece&ccedil;a uma URL v&aacute;lida.",
+  vinUS: "O n&uacute;mero de identifica&ccedil;&atilde;o de ve&iacute;culo informada (VIN) &eacute; inv&aacute;lido.",
+  zipcodeUS: "Por favor, fornece&ccedil;a um c&oacute;digo postal americano v&aacute;lido.",
+  ziprange: "O c&oacute;digo postal deve estar entre 902xx-xxxx e 905xx-xxxx",
+  cpfBR: "Por favor, forne&ccedil;a um CPF v&aacute;lido."
+} );
+
+/*
+ * Bootstrap Switch http://bootstrapswitch.com - v3.3.4 - 2/25/2017
+ * Locale: PT (Portuguese; português)
+ * Region: BR (Brazil)
+ */
+$.fn.bootstrapSwitch.defaults.onText = 'SIM';
+$.fn.bootstrapSwitch.defaults.offText = 'NÃO';

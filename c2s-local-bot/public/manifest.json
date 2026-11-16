@@ -1,0 +1,62 @@
+{
+  "manifest_version": 3,
+  "name": "C2S Local Bot",
+  "version": "1.0.0",
+  "description": "Monitoramento, captura e organizacao de leads no C2S e no CV CRM. Local-first.",
+  "minimum_chrome_version": "137",
+  "permissions": ["storage", "alarms", "notifications", "unlimitedStorage", "sidePanel", "offscreen"],
+  "host_permissions": ["https://api.contact2sale.com/*", "https://*.cvcrm.com.br/*"],
+  "background": {
+    "service_worker": "background/serviceWorker.js",
+    "type": "module"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://api.contact2sale.com/*"],
+      "js": ["content/interceptor.js"],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": false
+    },
+    {
+      "matches": ["https://api.contact2sale.com/*"],
+      "js": ["content/index.js"],
+      "run_at": "document_start",
+      "world": "ISOLATED",
+      "all_frames": false
+    },
+    {
+      "matches": ["https://*.cvcrm.com.br/*"],
+      "js": ["content/cvcrm-guard.js"],
+      "run_at": "document_start",
+      "world": "MAIN",
+      "all_frames": false
+    },
+    {
+      "matches": ["https://*.cvcrm.com.br/*"],
+      "js": ["content/cvcrm.js"],
+      "run_at": "document_end",
+      "world": "ISOLATED",
+      "all_frames": false
+    }
+  ],
+  "action": {
+    "default_title": "C2S Local Bot",
+    "default_icon": {
+      "16": "icons/icon-16.png",
+      "32": "icons/icon-32.png",
+      "48": "icons/icon-48.png",
+      "128": "icons/icon-128.png"
+    }
+  },
+  "side_panel": {
+    "default_path": "panel.html"
+  },
+  "options_page": "panel.html",
+  "icons": {
+    "16": "icons/icon-16.png",
+    "32": "icons/icon-32.png",
+    "48": "icons/icon-48.png",
+    "128": "icons/icon-128.png"
+  }
+}

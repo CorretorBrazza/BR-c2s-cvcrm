@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="28" height="28" viewBox="0 0 28 28">
+  <defs>
+    <clipPath id="clip-custom_1">
+      <rect width="28" height="28"/>
+    </clipPath>
+  </defs>
+  <g id="custom_1" data-name="custom – 1" clip-path="url(#clip-custom_1)">
+    <g id="Grupo_1" data-name="Grupo 1" transform="translate(-11 -11)">
+      <path id="Caminho_1" data-name="Caminho 1" d="M25.745,69.312l.008-.005L21.975,59.7a1.786,1.786,0,0,0-1.592-1.259h-.718V57.55a.59.59,0,0,0-.5-.648H6.839a.59.59,0,0,0-.5.648v.893H5.617A1.786,1.786,0,0,0,4.025,59.7L.247,69.306l.008.005A2.756,2.756,0,0,0,0,70.486V80.633A2.068,2.068,0,0,0,1.765,82.9H24.235A2.068,2.068,0,0,0,26,80.633V70.486A2.756,2.756,0,0,0,25.745,69.312Z" transform="translate(12 -44.902)" fill="none" stroke="#393e41" stroke-width="1"/>
+      <path id="Caminho_2" data-name="Caminho 2" d="M18.645,14.918l-1.691,8.665H35.071l-1.635-8.665" transform="translate(-1)" fill="none" stroke="#393e41" stroke-linecap="round" stroke-linejoin="round" stroke-width="1"/>
+      <path id="Caminho_3" data-name="Caminho 3" d="M20.443,23.438l1.016,2.856h7.01l.944-2.5" fill="none" stroke="#393e41" stroke-linejoin="round" stroke-width="1"/>
+      <path id="Caminho_4" data-name="Caminho 4" d="M18.262,20.209H31.738" fill="none" stroke="#393e41" stroke-linecap="round" stroke-width="1"/>
+      <path id="Caminho_5" data-name="Caminho 5" d="M19.427,16.1H30.66" fill="none" stroke="#393e41" stroke-linecap="round" stroke-width="1"/>
+      <g id="Retângulo_1" data-name="Retângulo 1" transform="translate(21 30)" fill="none" stroke="#393e41" stroke-linecap="round" stroke-linejoin="round" stroke-width="1">
+        <rect width="8" height="5" stroke="none"/>
+        <rect x="0.5" y="0.5" width="7" height="4" fill="none"/>
+      </g>
+    </g>
+  </g>
+</svg>

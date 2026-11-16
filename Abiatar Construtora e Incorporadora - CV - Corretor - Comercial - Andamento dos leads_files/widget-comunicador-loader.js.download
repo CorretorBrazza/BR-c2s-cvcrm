@@ -1,0 +1,145 @@
+(function (window, document) {
+    window.__WIDGET_COMUNICADOR_LOADER_LOADED__ = true;
+
+    function getLoaderVersion() {
+        try {
+            var current = document.currentScript;
+            if (!current) return '';
+            var src = current.src || '';
+            if (!src) return '';
+            var u = new URL(src, window.location.href);
+            return u.searchParams.get('v') || '';
+        } catch (e) {
+            try {
+                var s = document.currentScript && document.currentScript.src ? document.currentScript.src : '';
+                var m = s.match(/[?&]v=([^&]+)/);
+                return m ? decodeURIComponent(m[1]) : '';
+            } catch (e2) {}
+            return '';
+        }
+    }
+
+    var ASSET_V = getLoaderVersion();
+    var Q = ASSET_V ? '?v=' + encodeURIComponent(ASSET_V) : '';
+
+    var CSS_PATH = '/assets/plugins/cv-widget-comunicador/dist/index.css' + Q;
+    var JS_PATH = '/assets/plugins/cv-widget-comunicador/dist/index.js' + Q;
+
+    function detectGlobalName() {
+        try {
+            var current = document.currentScript;
+            if (!current) return null;
+            return current.getAttribute('data-global-name');
+        } catch (e) {
+            return null;
+        }
+    }
+
+    function findQueuedGlobal() {
+        for (var k in window) {
+            try {
+                var v = window[k];
+                if (typeof v === 'function' && v.q && Array.isArray(v.q)) {
+                    return k;
+                }
+            } catch (e) {}
+        }
+        return null;
+    }
+
+    var GLOBAL_NAME = detectGlobalName() || findQueuedGlobal() || 'comunicador';
+
+    var queued = window[GLOBAL_NAME] && window[GLOBAL_NAME].q ? window[GLOBAL_NAME].q : [];
+
+    function ensureBody(cb) {
+        if (document.body) return cb();
+        document.addEventListener('DOMContentLoaded', cb, { once: true });
+    }
+
+    function loadCSS(href, done) {
+        try {
+            var head = document.head || document.getElementsByTagName('head')[0];
+
+            var existing = head.querySelector('link[rel="stylesheet"][href="' + href + '"]');
+            if (existing) return done && done();
+
+            var link = document.createElement('link');
+            link.rel = 'stylesheet';
+            link.href = href;
+            link.onload = function () {
+                done && done();
+            };
+            link.onerror = function () {
+                done && done();
+            };
+            head.appendChild(link);
+        } catch (e) {
+            done && done();
+        }
+    }
+
+    function loadJS(src, done) {
+        ensureBody(function () {
+            try {
+                var existing = document.querySelector('script[src="' + src + '"]');
+                if (existing) return done && done();
+
+                var script = document.createElement('script');
+                script.src = src;
+                script.async = true;
+                script.onload = function () {
+                    done && done();
+                };
+                script.onerror = function () {
+                    done && done();
+                };
+                document.body.appendChild(script);
+            } catch (e) {
+                done && done();
+            }
+        });
+    }
+
+    function createOrUpdateAppContainer(options) {
+        ensureBody(function () {
+            var el = document.getElementById('appWidgetComunicador');
+            if (!el) {
+                el = document.createElement('div');
+                el.id = 'appWidgetComunicador';
+                document.body.appendChild(el);
+            }
+
+            if (options && typeof options === 'object') {
+                if (options.page) el.setAttribute('data-page', options.page);
+                if (options.idChat !== undefined && options.idChat !== null) {
+                    el.setAttribute('data-id-chat', String(options.idChat));
+                }
+            }
+        });
+    }
+
+    var started = false;
+
+    function init(options) {
+        if (started) return;
+        started = true;
+
+        createOrUpdateAppContainer(options);
+
+        loadCSS(CSS_PATH, function () {
+            loadJS(JS_PATH, function () {});
+        });
+    }
+
+    window[GLOBAL_NAME] = function (action, options) {
+        if (action === 'init') init(options);
+    };
+
+    if (queued && queued.length) {
+        for (var i = 0; i < queued.length; i++) {
+            try {
+                window[GLOBAL_NAME].apply(null, queued[i]);
+            } catch (e) {}
+        }
+    }
+})(window, document);

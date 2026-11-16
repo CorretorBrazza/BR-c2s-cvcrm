@@ -1,0 +1,1314 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="content-language" content="pt-BR" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>C2S - Gestão de Contatos</title><!--[if IE]>
+    <link rel="shortcut icon" href="images/favicon.ico" />
+    <![endif]-->
+    <link rel="icon" type="image/png" href="/images/favicon-32x32.png" sizes="32x32" />
+    <link rel="icon" type="image/png" href="/images/favicon-16x16.png" sizes="16x16" />
+    <link rel="manifest" src="/public/manifest.json" />
+    <link rel="stylesheet" media="all" href="//cdn.contact2sale.com/assets/webapp2/application-97fc90b32095f907312ddd197489c712cc507886b560c5364552a430b9adc472.css" data-turbolinks-track="true" /><script src="//cdn.contact2sale.com/assets/webapp2/application-76242f3aa5250a33057da36bb492b1e60e964e902618d030c36e06c274b4e209.js" data-turbolinks-track="true"></script><script src="//cdn.contact2sale.com/assets/webapp2/c2s_url_return_watch-c5e338930f9ea0ad6466ebc8f75401c0e6032d50424b57f8de7bd866f991c27b.js" data-turbolinks-track="true"></script><script src="//cdn.contact2sale.com/javascripts/locale_1_2_pt-BR.js"></script>
+    <script src="https://app-static.posthog.com/static/array.js"></script>
+    
+      <style>
+     #page-wrapper {
+       padding-right: 0px;
+       padding-left: 0px;
+     }
+     
+     .container.bucket-list {
+       display: flex;
+       flex-direction: column;
+       align-items: center;
+       box-sizing: content-box;
+       width: 100%;
+       margin: 0px 0px 40px 0px;
+       padding: 0;
+     }
+     
+     .container.bucket-list .leads {
+       width: 95%;
+     }
+     
+     .bucket-leads-title {
+       justify-content: center;
+       align-items: baseline;
+       padding: 5px;
+     }
+     
+     .wrapper.text-center {
+       padding-bottom: 20px;
+       margin-bottom: 40px;
+     }
+     
+     .upgrade_bucket {
+       background-color: #FFF3DA;
+       padding-top: 4px;
+       padding-bottom: 7px;
+     
+       flex-wrap: nowrap;
+       justify-content: center;
+       align-items: center;
+       text-align: center;
+     }
+     
+     .upgrade_bucket.free_tier_limit_reached {
+       background-color: #FFE5E2;
+       color: #A41300;
+     }
+     
+     .upgrade-link {
+       color: #036308;
+       text-decoration: underline;
+     }
+     
+     span.leads_count {
+       font-weight: bold;
+       font-size: 16px;
+     }
+     
+     .bucket-icon {
+       font-size: 22px;
+       padding-left: 6px;
+     }
+     
+     .bucket-lead-card:hover {
+       cursor: pointer;
+     }
+     
+     .ibox-lead {
+       -webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+       -moz-box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+       box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+       -webkit-border-radius: 0.3em;
+       -moz-border-radius: 0.3em;
+       border-radius: 0.3em;
+       background: #fff;
+       margin-bottom: 10px;
+       color: #676a6c;
+     }
+     
+     .ibox-lead:hover {
+       background: #f7f7f7;
+     }
+     
+     .ibox-lead div {
+       background: none;
+     }
+     
+     .ibox-lead label {
+       font-weight: bold;
+       padding-left: 10px;
+     }
+     
+     .ibox-lead .ibox-title {
+       border: none;
+     }
+     
+     .ibox-lead .text-muted {
+       color: #c1c3c4;
+     }
+     
+     .ibox-lead dl {
+       display: inline;
+       margin-bottom: 0;
+     }
+     
+     .ibox-lead dl dt {
+       display: block;
+       float: left;
+       margin-left: 20px;
+       font-weight: normal;
+     }
+     
+     .ibox-title, .ibox-footer {
+       justify-content: space-between;
+       display: flex;
+     }
+     
+     .ibox-footer {
+       display: flex;
+       flex-direction: row-reverse;
+     }
+     
+     .ibox-content {
+       font-weight: normal;
+       text-align: left;
+     
+       display: flex;
+       flex-direction: row;
+       justify-content: space-between;
+     }
+     
+     .panel-body .pull-right.bottom {
+       position: static;
+       margin: 0;
+       float: right;
+     }
+     
+     .tooltip .tooltip-inner {
+       background-color: #2F4050;
+     }
+     
+     .favorite_icon {
+       margin-left: 5px;
+     }
+     
+     .flag-squad {
+       margin: -5px 10px 0 0;
+     }
+     
+     .score-bar {
+       width: 20%;
+       margin: 0 auto;
+       margin-top: -9px;
+     }
+     
+     .icon-robot-chat {
+       width: 20px;
+       margin-left: 10px;
+       margin-bottom: 9px;
+     }
+     
+     .modal#modal_bucket_lead {
+       text-align: center;
+     }
+     
+     @media screen and (min-width: 768px) {
+       .modal#modal_bucket_lead:before {
+         display: inline-block;
+         vertical-align: middle;
+         content: " ";
+         height: 100%;
+       }
+     }
+     
+     #modal_bucket_lead .modal-dialog {
+       display: inline-block;
+       text-align: left;
+       vertical-align: middle;
+     }
+     
+     .modal-footer {
+       display: flex;
+       align-items: center;
+       justify-content: center;
+     }
+     
+     #modal_bucket_lead .modal-body {
+       font-size: 18px;
+     }
+     
+     #modal_bucket_lead p#info {
+       text-decoration: underline;
+     }
+     
+     #bucket-at-content {
+       justify-content: space-around;
+       background: none;
+       box-shadow: none;
+     }
+     
+     #bucket-at-title {
+       justify-content: center;
+       background: none;
+     }
+     
+     .bucket-at-arrow {
+       width: 100%;
+       color: #5555;
+     }
+     
+     .bucket-at-date {
+       display: grid;
+       justify-items: center;
+     }
+     
+     #modal_free_tier_enabled .modal-body p {
+       color: #585858;
+       font-size: 20px;
+       text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+     }
+     
+     #modal_free_tier_enabled p span{
+       font-weight: 500;
+       color: #036308;
+     }
+     
+     #modal_free_tier_enabled .modal-header {
+       padding-top: 15px;
+       padding-right: 15px;
+     }
+     
+     #modal_free_tier_enabled .modal-body {
+       padding: 0px 30px 0px 30px !important;
+     }
+     
+     #modal_free_tier_enabled .modal-footer {
+       flex-direction: column;
+       gap: 10px;
+     }
+     
+     #modal_free_tier_enabled .modal-footer p{
+       color: #A7A6A6;
+       font-size: 10px;
+     }
+     
+     .modal-dialog-vertical-center {
+       display: flex;
+       align-items: center;
+       min-height: 100%;
+     }
+     
+     .btn-free-tier-upselling {
+       background-color: #036308 !important;
+       border: none;
+       border-radius: 10px;
+     }
+     
+     .bucket-blurred-data {
+       filter: blur(4px);
+       user-select: none;
+       pointer-events: none;
+     }
+     
+      </style><meta name="csrf-param" content="authenticity_token" />
+    <meta name="csrf-token" content="YUY78PG+ZMoPRaB4u06DPYvO/lM+RMKvuX44/0KqPSqu0OkRTBDEBcl3zsdVBI1UQeIRO8/OMPQ57aarw0UsHg==" />
+  </head>
+  <body>
+    <div class="loading">
+      <div class="loader"></div>
+    </div>
+    <script defer="defer" src="https://www.gstatic.com/firebasejs/8.4.1/firebase-app.js"></script>
+    <script defer="defer" src="https://www.gstatic.com/firebasejs/8.4.1/firebase-analytics.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {  if (typeof window.PosthogAnalytics !== 'undefined') {    window.PosthogAnalytics.init('phc_sbdX75SBf4mhtwrNOgdKlsIS9PkJpO8vrGS7sGNljCf', 'https://us.i.posthog.com');  }});
+    </script>
+    <div id="wrapper">
+      <nav class="navbar-default navbar-static-side" role="navigation">
+        <div class="sidebar-collapse">
+          <ul id="side-menu" class="nav metismenu">
+            <li class="nav-header" id="logo-header">
+              <div class="dropdown profile-element">
+                <span><img class="img-md img-rounded" alt="image" src="//cdn.contact2sale.com/assets/webapp2/white_theme/app-icon-935420661051fadcea322d3dfd9d063aae607bada945b66a4e98c009f896e2f6.png" /></span>
+              </div>
+              <div class="logo-element">
+                C2S
+              </div>
+            </li>
+            <li class="li-skeleton" style="padding: 5px;">
+              <div class="skeleton" style="--start: 0.374638766762851; --end: 0.41600658035190485; width: 80%; height: 3rem; margin-bottom: 0.5rem; border-radius: 1rem;"></div>
+            </li><li class="li-skeleton" style="padding: 5px;">
+              <div class="skeleton" style="--start: 0.4469931418880581; --end: 0.28199663341573517; width: 50%; height: 3rem; margin-bottom: 0.5rem; border-radius: 1rem;"></div>
+            </li><li class="li-skeleton" style="padding: 5px;">
+              <div class="skeleton" style="--start: 0.3853829486599944; --end: 0.7927123196832528; width: 60%; height: 3rem; margin-bottom: 0.5rem; border-radius: 1rem;"></div>
+            </li><li class="li-skeleton" style="padding: 5px;">
+              <div class="skeleton" style="--start: 0.8587464383539554; --end: 0.7683476540884635; width: 40%; height: 3rem; margin-bottom: 0.5rem; border-radius: 1rem;"></div>
+            </li><li class="li-skeleton" style="padding: 5px;">
+              <div class="skeleton" style="--start: 0.44308603444789624; --end: 0.7950762965690457; width: 90%; height: 3rem; margin-bottom: 0.5rem; border-radius: 1rem;"></div>
+            </li><li class="li-skeleton" style="padding: 5px;">
+              <div class="skeleton" style="--start: 0.6489150609904546; --end: 0.8349207263214268; width: 90%; height: 3rem; margin-bottom: 0.5rem; border-radius: 1rem;"></div>
+            </li><li class="li-skeleton" style="padding: 5px;">
+              <div class="skeleton" style="--start: 0.5664609937910455; --end: 0.014815560397938288; width: 60%; height: 3rem; margin-bottom: 0.5rem; border-radius: 1rem;"></div>
+            </li><li class="li-skeleton" style="padding: 5px;">
+              <div class="skeleton" style="--start: 0.7318014076225052; --end: 0.891654143440879; width: 50%; height: 3rem; margin-bottom: 0.5rem; border-radius: 1rem;"></div>
+            </li><li class="li-skeleton" style="padding: 5px;">
+              <div class="skeleton" style="--start: 0.28353600722655115; --end: 0.6696172029352613; width: 90%; height: 3rem; margin-bottom: 0.5rem; border-radius: 1rem;"></div>
+            </li><li class="li-skeleton" style="padding: 5px;">
+              <div class="skeleton" style="--start: 0.008388488727850585; --end: 0.6193213008364051; width: 70%; height: 3rem; margin-bottom: 0.5rem; border-radius: 1rem;"></div>
+            </li><li class="li-skeleton" style="padding: 5px;">
+              <div class="skeleton" style="--start: 0.2760703569728267; --end: 0.46864022278776923; width: 40%; height: 3rem; margin-bottom: 0.5rem; border-radius: 1rem;"></div>
+            </li><li class="li-skeleton" style="padding: 5px;">
+              <div class="skeleton" style="--start: 0.6420862593596689; --end: 0.6903683889373957; width: 50%; height: 3rem; margin-bottom: 0.5rem; border-radius: 1rem;"></div>
+            </li><li class="li-skeleton" style="padding: 5px;">
+              <div class="skeleton" style="--start: 0.3079224279331215; --end: 0.534942496391301; width: 80%; height: 3rem; margin-bottom: 0.5rem; border-radius: 1rem;"></div>
+            </li>
+            <style>
+              .skeleton {
+                animation: skeleton-loading 1s linear infinite alternate;
+              }
+              
+              @keyframes skeleton-loading {
+                0% {
+                  background-color: hsl(200, 20%, 80%);
+                }
+                100% {
+                  background-color: hsl(200, 20%, 95%);
+                }
+              }
+              
+            </style>
+          </ul>
+        </div>
+      </nav>
+      <div id="page-wrapper" class="gray-bg">
+        <div class="row border-bottom navbar-row">
+          <nav class="navbar navbar-fixed-top" role="navigation" style="margin-bottom: 0">
+            <div class="upselling-bar hide" onclick="showUpsellingModal(&#39;click_desbloquear&#39;);">
+              <i class="upselling-bar-icon glyphicon glyphicon-circle-arrow-up"></i><span class="upselling-bar-title">Clique para desbloquear a funcionalidade</span>
+            </div>
+            <ul class="nav navbar-top-links navbar-right">
+              <li>
+                <style>
+                  .select2-container--open .select2-dropdown {
+                    position: absolute;
+                    top: 100%;
+                    right: 0;
+                    transform: translateX(0);
+                    z-index: 1000;
+                  }
+                </style>
+              </li>
+              <li>
+                
+              </li>
+              <li>
+                <div class="dropdown">
+                  <button id="multi-user-dropdown" class="form-control dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Selecione um usuário<span class="caret"></span></button>
+                  <ul id="multi-user-menu" class="dropdown-menu" aria-labelledby="multi-user-dropdown">
+                    <li class="user-item col-sm-12">
+                      <span><label class="checkbox-container">BRAZZA05<input class="custom-control-input" name="multi_user" type="radio" checked="checked" value="7859ab5795e3790bb9ed9e19ca17318b" data-username="BRAZZA05" data-user-id="390984" /><span class="checkmark-custom"></span></label></span><span class="pull-right"><a href="/webapp/login/logout?id=7859ab5795e3790bb9ed9e19ca17318b">Sair</a></span>
+                    </li>
+                    <li class="col-sm-12 add-account-session">
+                      <span class="add-account-icon"><i class="fa fa-plus"></i></span><span class="add-account-title">Entrar com outra conta</span>
+                    </li>
+                    <span class="divider"></span>
+                    <li class="col-sm-12 profile-option">
+                      <span class="profile-icon-1"><i class="fa fa-user"></i></span><span class="profile-title"><a data-menu="Profile" href="/webapp/profile">Meu perfil</a></span>
+                    </li>
+                    <li class="col-sm-12 profile-option">
+                      <span class="profile-icon-2"><i class="fa fa-paper-plane"></i></span><span class="profile-title"><a data-menu="Template Messages" href="/webapp/message_templates">Mensagens prontas</a></span>
+                    </li>
+                    <li class="col-sm-12 profile-option">
+                      <span class="profile-icon-5"><i class="fa fa-question"></i></span><span class="profile-title"><a data-menu="FAQ" href="https://basedeconhecimentosc2s.notion.site/Base-de-conhecimentos-C2S-dda230cab7b149109abaff972e5b2f6f">Perguntas frequentes</a></span>
+                    </li>
+                    <li class="col-sm-12 profile-option">
+                      <span class="profile-icon-3"><i class="fa fa-smile-o"></i></span><span class="profile-title"><a data-menu="Referrals" href="/webapp/referrals">Minhas indicações</a></span>
+                    </li>
+                    <li class="col-sm-12 profile-option">
+                      <span class="profile-icon-1"><i class="fa fa-graduation-cap"></i></span><span class="profile-title"><a data-menu="Self Trainings" href="/webapp/self_trainings">Treinamentos</a></span>
+                    </li>
+                    <li class="col-sm-12 profile-option">
+                      <span class="profile-icon-5"><i class="fa fa-sign-out"></i></span><span class="profile-title"><a id="logout-button" data-menu="Exit All" href="/webapp/login/logout">Sair de todos os usuários</a></span>
+                    </li>
+                  </ul>
+                </div>
+                <style>
+                  #multi-user-dropdown {
+                    padding-bottom: 2.2em;
+                  }
+                  
+                  #multi-user-dropdown:focus {
+                    border: 1px solid #e5e6e7 !important;
+                  }
+                  
+                  #multi-user-menu {
+                    width: 23em;
+                    padding-top: 2em;
+                    padding-left: 1em;
+                    padding-right: 1em;
+                    padding-bottom: 1em;
+                    margin-top: 0.5em !important;
+                  }
+                  
+                  #multi-user-menu li {
+                    padding-top: 7px;
+                    padding-bottom: 7px;
+                    display: flex;
+                    align-items: center;
+                  }
+                  
+                  #multi-user-menu li:hover {
+                    background-color: #F7F7F7;
+                  }
+                  
+                  #multi-user-menu .user-item {
+                    display: flex;
+                    justify-content: space-between;
+                    width: 100%;
+                  }
+                  
+                  #multi-user-menu .user-item span {
+                    flex-grow: 1;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                  }
+                  
+                  #multi-user-menu .pull-right {
+                    flex-shrink: 0;
+                    margin-left: 10px;
+                    text-align: end;
+                  }
+                  
+                  #multi-user-menu .profile-icon-1 i {
+                    font-size: 17px;
+                    width: 1.5em;
+                    height: 1.5em;
+                    line-height: 1.5em;
+                    text-align: start;
+                    color: #919496;
+                    margin-right: 10px;
+                  }
+                  
+                  #multi-user-menu .profile-icon-2 i {
+                    font-size: 15px;
+                    width: 1.5em;
+                    height: 1.5em;
+                    line-height: 1.5em;
+                    text-align: start;
+                    color: #919496;
+                    margin-right: 12.5px;
+                  }
+                  
+                  #multi-user-menu .profile-icon-3 i {
+                    font-size: 18px;
+                    width: 1.5em;
+                    height: 1.5em;
+                    line-height: 1.5em;
+                    text-align: start;
+                    color: #919496;
+                    margin-right: 8.5px;
+                  }
+                  
+                  #multi-user-menu .profile-icon-5 i {
+                    font-size: 19px;
+                    width: 1.5em;
+                    height: 1.5em;
+                    line-height: 1.5em;
+                    text-align: start;
+                    color: #919496;
+                    margin-right: 8.5px;
+                    padding-left: 2px;
+                  }
+                  
+                  #multi-user-menu .profile-title a {
+                    color: #676A6C;
+                    text-align: start;
+                    padding: 3px 20px 3px 5px !important;
+                  }
+                  
+                  #multi-user-menu .divider {
+                    display: block;
+                    width: 100%;
+                    height: 0.5px;
+                    background-color: #449be9;
+                  }
+                </style>
+              </li>
+            </ul>
+          </nav>
+        </div><div class="white-bg">
+          <input type="hidden" name="free_tier_enabled" id="free_tier_enabled" value="false" />
+          <div class="wrapper text-center">
+            <div class="bucket-leads-title">
+              <strong>
+                <h1>
+                  Bolsão de leads
+                </h1>
+              </strong><i class="fa fa-clock-o bucket-icon"></i>
+            </div>
+            <strong>
+              <h3>
+                Aqui ficam os leads que não foram respondidos dentro de 15 minutos.
+              </h3>
+            </strong><strong>
+              <h3>
+                Você pode clicar em um lead para tornar-se responsável por ele
+              </h3>
+            </strong>
+          </div>
+        </div>
+        <div class="container bucket-list">
+          <div class="leads">
+          </div>
+          <div class="text-center">
+            <strong>
+              <h3>
+                Últimos 10 leads que passaram pelo bolsão
+              </h3>
+            </strong>
+          </div>
+          <div class="leads">
+            <div class="bucket-at-card">
+              <div class="ibox-bucket-at">
+                <div class="ibox-title" id="bucket-at-title">
+                  <strong>Vinicius Alberto</strong>
+                </div>
+                <div class="ibox-content" id="bucket-at-content">
+                  <div class="bucket-at-date">
+                    <span>Criado em</span><span>13/11/2026 às 12:01:47</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Disponível no bolsão</span><span>13/11/2026 às 12:16:48</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Removido do bolsão</span><span>13/11/2026 às 12:17:07</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bucket-at-card">
+              <div class="ibox-bucket-at">
+                <div class="ibox-title" id="bucket-at-title">
+                  <strong>Thiago Ferreira</strong>
+                </div>
+                <div class="ibox-content" id="bucket-at-content">
+                  <div class="bucket-at-date">
+                    <span>Criado em</span><span>12/11/2026 às 17:29:38</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Disponível no bolsão</span><span>12/11/2026 às 17:44:39</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Removido do bolsão</span><span>12/11/2026 às 17:45:08</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bucket-at-card">
+              <div class="ibox-bucket-at">
+                <div class="ibox-title" id="bucket-at-title">
+                  <strong>Joyce AP da Silva Grigio</strong>
+                </div>
+                <div class="ibox-content" id="bucket-at-content">
+                  <div class="bucket-at-date">
+                    <span>Criado em</span><span>12/11/2026 às 15:22:33</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Disponível no bolsão</span><span>12/11/2026 às 15:37:34</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Removido do bolsão</span><span>12/11/2026 às 15:37:56</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bucket-at-card">
+              <div class="ibox-bucket-at">
+                <div class="ibox-title" id="bucket-at-title">
+                  <strong>Jhenifer Marques</strong>
+                </div>
+                <div class="ibox-content" id="bucket-at-content">
+                  <div class="bucket-at-date">
+                    <span>Criado em</span><span>12/11/2026 às 03:33:47</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Disponível no bolsão</span><span>12/11/2026 às 03:48:48</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Removido do bolsão</span><span>12/11/2026 às 03:49:09</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bucket-at-card">
+              <div class="ibox-bucket-at">
+                <div class="ibox-title" id="bucket-at-title">
+                  <strong>Tiago Luna Gomes</strong>
+                </div>
+                <div class="ibox-content" id="bucket-at-content">
+                  <div class="bucket-at-date">
+                    <span>Criado em</span><span>12/11/2026 às 01:46:49</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Disponível no bolsão</span><span>12/11/2026 às 02:01:50</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Removido do bolsão</span><span>12/11/2026 às 02:27:42</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bucket-at-card">
+              <div class="ibox-bucket-at">
+                <div class="ibox-title" id="bucket-at-title">
+                  <strong>Vitor Silva</strong>
+                </div>
+                <div class="ibox-content" id="bucket-at-content">
+                  <div class="bucket-at-date">
+                    <span>Criado em</span><span>11/11/2026 às 23:02:21</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Disponível no bolsão</span><span>11/11/2026 às 23:17:22</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Removido do bolsão</span><span>11/11/2026 às 23:17:43</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bucket-at-card">
+              <div class="ibox-bucket-at">
+                <div class="ibox-title" id="bucket-at-title">
+                  <strong>Adrielle Rodrigues</strong>
+                </div>
+                <div class="ibox-content" id="bucket-at-content">
+                  <div class="bucket-at-date">
+                    <span>Criado em</span><span>11/11/2026 às 18:33:44</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Disponível no bolsão</span><span>11/11/2026 às 18:48:45</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Removido do bolsão</span><span>11/11/2026 às 18:55:38</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bucket-at-card">
+              <div class="ibox-bucket-at">
+                <div class="ibox-title" id="bucket-at-title">
+                  <strong>Élsantt</strong>
+                </div>
+                <div class="ibox-content" id="bucket-at-content">
+                  <div class="bucket-at-date">
+                    <span>Criado em</span><span>11/11/2026 às 15:27:35</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Disponível no bolsão</span><span>11/11/2026 às 15:42:37</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Removido do bolsão</span><span>11/11/2026 às 16:06:04</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bucket-at-card">
+              <div class="ibox-bucket-at">
+                <div class="ibox-title" id="bucket-at-title">
+                  <strong>Gaby Silva</strong>
+                </div>
+                <div class="ibox-content" id="bucket-at-content">
+                  <div class="bucket-at-date">
+                    <span>Criado em</span><span>11/11/2026 às 11:12:43</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Disponível no bolsão</span><span>11/11/2026 às 11:27:44</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Removido do bolsão</span><span>11/11/2026 às 11:39:33</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="bucket-at-card">
+              <div class="ibox-bucket-at">
+                <div class="ibox-title" id="bucket-at-title">
+                  <strong>Roni Ferreira SP</strong>
+                </div>
+                <div class="ibox-content" id="bucket-at-content">
+                  <div class="bucket-at-date">
+                    <span>Criado em</span><span>11/11/2026 às 10:38:59</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Disponível no bolsão</span><span>11/11/2026 às 10:54:00</span>
+                  </div>
+                  <span><img class="bucket-at-arrow" src="//cdn.contact2sale.com/assets/webapp2/right_arrow-79b6782572838fd8b20578c9fd5bf56e443e477d1f870fe69cf21856526409f2.png" /></span>
+                  <div class="bucket-at-date">
+                    <span>Removido do bolsão</span><span>11/11/2026 às 11:39:23</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="modal" id="modal_bucket_lead" role="dialog" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button class="close" type="button" data-dismiss="modal">&times;</button>
+                  <div class="modal-title text-center">
+                    <h2>
+                      <strong>Tornar-se responsável pelo lead</strong>
+                    </h2>
+                  </div>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-12 text-center">
+                      <p>
+                        Você irá se tornar o responsável por esse lead, e apenas poderá acessar outro lead do Bolsão após interagir com esse cliente.
+                      </p>
+                      <p id="info">
+                        Isso não irá impactar sua vez na fila de distribuição
+                      </p>
+                      <p>
+                        Deseja continuar?
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button class="btn btn-primary btn-lg" type="button" onclick="takeLeadToMe()">Sim, desejo me tornar o responsável por esse lead</button>
+                </div>
+              </div>
+            </div>
+          </div><div class="modal" id="modal_bucket_lead_denied" role="dialog" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog modal-dialog-centered modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button class="close" type="button" data-dismiss="modal">&times;</button>
+                  <div class="modal-title text-center">
+                    <h2>
+                      <strong>Lead indisponível</strong>
+                    </h2>
+                  </div>
+                </div>
+                <div class="modal-body">
+                  <div class="row">
+                    <div class="col-md-12 text-center">
+                      <p>
+                        Não foi possível torna-se responsável por esse lead porque ele já foi atribuído a outro usuário
+                      </p>
+                      <p>
+                        Você pode selecionar outro lead do bolsão
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div><div class="modal" id="modal_free_tier_enabled" role="dialog" data-keyboard="false" data-backdrop="static">
+            <div class="modal-dialog-vertical-center">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button class="close" type="button">&times;</button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="row">
+                      <div class="col-md-12 text-center">
+                        <p>
+                          Você esgotou o plano gratuito com direito a resgatar 10<br> leads neste mês. Ative o plano completo, <b>sem limites<br> de leads</b>, com pagamento só na próxima fatura e<br> continue usando o Bolsão agora!
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <a class="btn btn-primary btn-lg btn-block btn-free-tier-upselling" href="#" onclick="confirmBucketActivation()" type="button">Confirmar ativação por 0,00/mês*</a><a class="btn btn-block" type="button">Cancelar</a>
+                    <p class="text-center">
+                      *Valor adicional à sua fatura. O preço do bolsão deve ser igual a 30% do preço-base do C2S e passará pelo nosso financeiro para garantir que esse requisito seja cumprido. Caso seja necessário, o C2S se reserva o direito de ajuste.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <script>
+          $(document).ready(function () {
+            var userAgent = navigator.userAgent;
+            var isMobile = /Android.+Mobile|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(userAgent);
+          
+            if (isMobile) {
+              window.location.href = "c2s://bucket";
+          
+              function redirectToAppStore() {
+                if (userAgent.match(/Android/i)) {
+                  window.location.href = "https://play.google.com/store/apps/details?id=com.c2s.c2s";
+                } else if (userAgent.match(/iPhone|iPod/i)) {
+                  setTimeout(function () {
+                    window.location.href = "https://apps.apple.com/br/app/c2s/id1530652167";
+                  }, 3000);
+                }
+              }
+          
+              redirectToAppStore();
+            }
+          });
+        </script><div class="footer">
+          <div class="pull-right">
+            C2S - Contact2Sale
+          </div>
+          <div>
+            <strong>Copyright</strong> C2S &copy; 2016-2026
+          </div>
+        </div>
+        <script>
+          $(document).ready(function() {
+            var firebaseConfig = {
+              apiKey: "AIzaSyDy6vkqIK0cWoa-ESRwip1a6f9r5b4VP6g",
+              authDomain: "c2s-go.firebaseapp.com",
+              databaseURL: "https://c2s-go.firebaseio.com",
+              projectId: "c2s-go",
+              storageBucket: "c2s-go.appspot.com",
+              messagingSenderId: "57096354195",
+              appId: "1:57096354195:web:0c303cf4273b8466a35066",
+              measurementId: "G-2X02FWGVSL"
+            }
+             // Initialize Firebase
+            firebase.initializeApp(firebaseConfig);
+            firebase.analytics();
+          });
+          
+        </script>
+      </div>
+    </div>
+    
+      <script>
+     var take_lead_id = null;
+     
+     function takeLeadToMe() {
+       var lead_id = take_lead_id;
+     
+       $.ajax({
+         url: "/bucket_leads/" + lead_id,
+         type: "POST",
+         success: function (data) {
+           if (data.message === 'redirect_to_upselling') {
+             window.location.href = "bucket_leads/upselling_free_tier";
+           }
+           else window.location.href = "/webapp/leads/" + lead_id;
+     
+           $("#modal_bucket_lead").modal("hide");
+         },
+         error: function (err, data) {
+           toastr.error(data?.message || err?.responseJSON?.message);
+           $("#modal_bucket_lead").modal("hide");
+         },
+       });
+     }
+     
+     $(document).ready(function() {
+       $(".upgrade-link").click(function() {
+         sendUpgradeEvent("Upgrade bucket now")
+         $("#modal_free_tier_enabled").modal("show");
+       });
+     });
+     
+     $(document).ready(function() {
+       $(".close").click(function() {
+         sendUpgradeEvent("Close modal")
+         $("#modal_free_tier_enabled").modal("hide");
+       });
+     });
+     
+     $(document).ready(function() {
+       $(".btn-block").click(function() {
+         sendUpgradeEvent("Cancel activation")
+         $("#modal_free_tier_enabled").modal("hide");
+       });
+     });
+     
+     function openModalTakeLead(lead_id, already_my_lead) {
+       if (already_my_lead) {
+         window.location.href = "/webapp/leads/" + lead_id;
+         return;
+       }
+     
+       const free_tier_enabled = $("#free_tier_enabled").val() == "true";
+     
+       if (free_tier_enabled){
+         $("#modal_free_tier_enabled").modal("show");
+         return
+       }
+     
+       if ($("#modal_bucket_lead_not_interacted").length > 0) {
+         $("#modal_bucket_lead_not_interacted").modal("show");
+         return;
+       }
+     
+       $.ajax({
+         url: "/bucket_leads/" + lead_id,
+         type: "GET",
+         typeData: "json",
+         success: function (data) {
+           if (data.bucket_lead) {
+             $("#modal_bucket_lead_denied").modal("show");
+           } else {
+             take_lead_id = lead_id;
+             $("#modal_bucket_lead").modal("show");
+           }
+         },
+       });
+     }
+     
+     function confirmBucketActivation() {
+       $('.loading').show();
+       disableFreeTierUpselling()
+         .then(() => {
+           sendUpgradeEvent("buy bucket confirmed")
+           toastr.success("Bolsão de Leads com 30 dias grátis ativado com sucesso!");
+           $("#modal_free_tier_enabled").modal("hide");
+           $("#free_tier_enabled").val(false);
+           $(".loading").hide();
+           window.location.reload();
+         })
+         .catch(() => {
+           toastr.error('Algo de errado aconteceu. Tente novamente em breve.');
+           $(".loading").hide();
+         });
+     }
+     
+     function disableFreeTierUpselling() {
+       return $.ajax({
+         url: "/upsellings/bucket_leads",
+         method: "POST"
+       });
+     }
+     
+     $(function () {
+       $("#modal_bucket_lead").on("hide.bs.modal", function () {
+         take_lead_id = null;
+       });
+     });
+     
+     function sendUpgradeEvent(eventName) {
+       $.ajax({
+         url: "/mixpanel/create",
+         method: "POST",
+         dataType: "json",
+         data: {
+           event_name: JSON.stringify(eventName),
+         },
+       });
+     }
+     
+      </script><script>
+      // request permission to recive notification on page load
+      document.addEventListener('DOMContentLoaded', function () {
+        if (!Notification) {
+          alert('Seu navegador não aceita notificações. Se tiver interesse em receber notificações de novos leads, utilize um navegador compatível.');
+          return;
+        }
+      
+        if (Notification.permission == "granted") {
+          start_notifications();
+        } else {
+          Notification.requestPermission().then(function(result) {
+            if (result === 'denied') {
+              console.log('Permission wasn\'t granted. Allow a retry.');
+              return;
+            }
+      
+            if (result === 'default') {
+              console.log('The permission request was dismissed.');
+              return;
+            }
+      
+            start_notifications();
+          });
+        }    
+      });
+      
+      function start_notifications(){
+        var vapid_key = new Uint8Array([4, 156, 233, 62, 250, 235, 227, 105, 34, 217, 131, 7, 17, 94, 193, 0, 129, 89, 49, 152, 213, 37, 255, 16, 18, 32, 84, 233, 235, 26, 72, 160, 121, 190, 47, 219, 159, 157, 146, 168, 173, 223, 25, 229, 133, 42, 40, 75, 43, 60, 193, 244, 56, 198, 123, 155, 128, 179, 101, 158, 237, 56, 209, 43, 19])
+      
+        if (navigator.serviceWorker) {
+          navigator.serviceWorker.register('/serviceworker.js')
+            .then(function(reg) {
+              navigator.serviceWorker.ready.then((serviceWorkerRegistration) => {
+                serviceWorkerRegistration.pushManager
+                .subscribe({
+                  userVisibleOnly: true,
+                  applicationServerKey: vapid_key,
+                }).then(function(sub) {
+                  data = fetch('/webapp/web_push_credentials',{
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(sub),
+                  })
+                });
+              });
+            });
+        }else {
+          console.error('Service worker is not supported in this browser');
+        }
+        }
+    </script><center>
+      <div id="multi-login-modal" class="modal fade" role="dialog">
+        <div class="error-message" data-message-error=""></div>
+        <div class="success-message" data-message-success=""></div>
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                  <div class="title-modal">
+                    Adicionando conta
+                  </div>
+                </div>
+                <div class="col-sm-1">
+                  <button class="close" type="button" data-dismiss="modal"><span aria-hidden="true">&times;</span></button>
+                </div>
+              </div>
+            </div>
+            <div class="modal-body">
+              <div class="row">
+                <div class="text-center">
+                  <img class="c2s-logo" src="/images/c2s-logo.jpg" /><center>
+                    <div class="col-sm-12">
+                      <p class="instructions">
+                        Insira aqui seu nome de usuário e enviaremos um email e uma mensagem no WhatsApp com o link de troca de senha, <strong>não esqueça de verificar a sua caixa de Spam!</strong>
+                      </p>
+                    </div>
+                    <form class="login-form multi-form" role="form" method="POST" action="/webapp/login/login">
+                      <div class="form-group">
+                        <input type="text" class="form-control" name="username" placeholder="Usuário" />
+                      </div>
+                      <div class="form-group">
+                        <input type="password" class="form-control" name="password" placeholder="Senha" />
+                      </div>
+                      <button type="submit" class="btn btn-primary btn-block">Entrar</button>
+                    </form>
+                    <form class="recovery-form multi-form" role="form" method="POST" action="/webapp/password_recovery">
+                      <div class="form-group">
+                        <input type="hidden" name="seller[multi_login]" required="required" value="true" /><input type="text" class="form-control" name="seller[username]" required="required" placeholder="Usuário" />
+                      </div>
+                      <button type="submit" class="btn btn-primary btn-block"><b>Receber instruções no WhatsApp e E-mail</b></button>
+                    </form>
+                  </center>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <div class="text-center footer-content">
+                <p class="go-to-recovery-password-button footer-links">
+                  Esqueci minha senha
+                </p>
+                <p class="back-to-login-button footer-links">
+                  Voltar para o login
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </center>
+    <style>
+      #multi-login-modal .modal-content .modal-body {
+        color: #a6a6a6;
+        max-width: 39em;
+      }
+      
+      .c2s-logo {
+        width: 10em;
+        margin-bottom: 2em;
+        border-radius: 15px;
+        filter: drop-shadow(0px 3px 6px rgba(72, 72, 72, 0.1));
+      }
+      
+      .title-modal {
+        padding-top: 0.5em;
+      }
+      
+      .multi-form {
+        width: 30em;
+      }
+      
+      .footer-content {
+        margin-bottom: 1em;
+      }
+      
+      .footer-links {
+        cursor: pointer;
+        text-decoration: underline;
+      }
+      
+      .add-account-session {
+        width: 100%;
+        cursor: pointer;
+        padding-top: 1.3em;
+        border-top: 1px solid #ebebeb;
+        margin-top: 10px;
+      }
+      
+      .add-account-icon {
+        color: #449be9;
+        font-size: 17px !important;
+        width: 1.5em;
+        height: 1.5em;
+        line-height: 1.5em;
+        text-align: start;
+        margin-right: 10px;
+      }
+      
+      .add-account-title {
+        color: #449be9;
+        font-size: 1.5rem;
+        text-align: start;
+        padding-left: 5px;
+      }
+    </style>
+    <script>
+      var makeLoginForm = function() {
+        $(".title-modal").text('Adicionando conta');
+        $(".recovery-form").hide();
+        $(".back-to-login-button").hide();
+        $(".instructions").hide();
+      
+        $(".login-form").show();
+        $(".go-to-recovery-password-button").show();
+      }
+      
+      var makeRecoveryForm = function() {
+        $(".title-modal").text('Recuperando senha');
+        $(".recovery-form").show();
+        $(".back-to-login-button").show();
+        $(".instructions").show();
+      
+        $(".login-form").hide();
+        $(".go-to-recovery-password-button").hide();
+      }
+      
+      var setUsernameInDropdown = function() {
+        let multiUserDropdown = $('#multi-user-dropdown')
+      
+        if ($('input[name="multi_user"]:checked').val()) {
+          multiUserDropdown.text($('input[name="multi_user"]:checked').data('username'))
+          multiUserDropdown.append('<span class="caret"></span>')
+        }
+      }
+      
+      var checkMultiLoginMessages = function() {
+        if($('.success-message').data('message-success')) {
+          toastr.success($('.success-message').data('message-success'));
+        } else if ($('.error-message').data('message-error')) {
+          toastr.error($('.error-message').data('message-error'));
+        }
+      }
+      
+      $(".back-to-login-button").click(function() {
+        makeLoginForm();
+      });
+      
+      $(".go-to-recovery-password-button").click(function() {
+        makeRecoveryForm();
+      });
+      
+      $(".add-account-session").click(function() {
+        $('#multi-login-modal').modal('show');
+      });
+      
+      $('input[name="multi_user"]').on('click', function () {
+        let url = `/webapp/set_multi_user?id=${ $(this).val() }`
+      
+        $.ajax({
+          url: url,
+          type: 'GET',
+          dataType: 'json',
+          success: function(data) {
+            if(data.success) {
+              toastr.success('Usuário alterado com sucesso')
+              window.location.reload();
+            } else {
+              toastr.error(data.message || "Erro ao mudar de usuário")
+            }
+          },
+          error: function(data) {
+            toastr.error(data.message || "Erro ao mudar de usuário")
+          }
+        });
+      })
+      
+      $(document).ready(function() {
+        makeLoginForm();
+        setUsernameInDropdown();
+        checkMultiLoginMessages();
+      });
+    </script>
+    <script defer="defer">
+      $(document).ready(function(){
+        $.get('/webapp/loader/cloud_humans', { cache: true }).done(function() {
+          fetchMenu();
+          onClickMenu();
+          onClickNavbar();
+        });
+      });
+      
+      function fetchMenu(){
+        return $.get('/webapp/loader/menu', { controller_name: 'bucket_leads', action_name: 'index' }, function(data) {
+          var script = document.createElement('script');
+          script.type = 'text/javascript';
+          script.text = data;
+          document.body.appendChild(script);
+      
+          loadMenu();
+          fetchBadges();
+        });
+      }
+      
+      function onClickMenu() {
+        $('#side-menu').on('click', 'a', function(event) {
+          try {      
+            var linkTitle = $(this).attr('data-menu');
+            var linkHref = $(this).attr('href');   // O valor do href do link
+      
+            if (!linkTitle) {
+              linkTitle = $(this).find('span:first').text().trim() || $(this).text(); // O texto do link
+            }
+      
+            // Chama a função para enviar os dados ao Mixpanel
+            sendMixpanelData(linkTitle, linkHref, 'Menu Clicked');
+            // Se quiser continuar com a navegação, não use preventDefault()
+            // ou redirecione manualmente com window.location = linkHref;
+          } catch (error) {
+            // Captura e registra o erro no console
+            console.error('Erro ao processar o clique no link:', error);
+          }
+        });
+      }
+      
+      function onClickNavbar() {
+        $('#multi-user-menu').on('click', 'a', function(event) {
+          try {
+            var linkTitle = $(this).data('menu') || $(this).text().trim();
+            var linkHref = $(this).attr('href');
+      
+            sendMixpanelData(linkTitle, linkHref, 'Menu Navbar Clicked');
+          } catch (error) {
+            console.error('Erro ao processar o clique na navbar:', error);
+          }
+        });
+      }
+      
+      function sendMixpanelData(title, linkTo, eventName) {
+        var mixpanelData = {
+          data: {
+            title: title,
+            link: linkTo,
+          },
+          event_name: eventName,
+        };
+      
+        $.ajax({
+          type: 'POST',
+          url: '/mixpanel/create',
+          data: JSON.stringify(mixpanelData),
+          contentType: 'application/json',
+          success: function(response) {
+            // console.log('Mixpanel data sent successfully:', response);
+          },
+          error: function(error) {
+            console.error('Error sending Mixpanel data:', error);
+          }
+        });
+      }
+    </script>
+  </body>
+</html>

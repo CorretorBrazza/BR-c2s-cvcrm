@@ -1,0 +1,14 @@
+node_modules/
+dist/
+release/
+.env
+.env.local
+*.log
+.DS_Store
+Thumbs.db
+coverage/
+.vite/
+
+# Licenciamento: a chave privada NUNCA é versionada.
+license-private.pem
+*.lic
